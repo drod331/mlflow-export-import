@@ -1,6 +1,7 @@
 from mlflow_export_import.client import databricks_cli_utils
 from mlflow_export_import.common import MlflowExportImportException
 from mlflow_export_import.common import utils
+import os
 
 _logger = utils.getLogger(__name__)
 
@@ -23,7 +24,7 @@ def get_mlflow_host_token():
             if not uri.startswith("http"):
                 _raise_exception(uri)
             else:
-                return (uri, None)
+                return (uri, os.environ.get("MLFLOW_TRACKING_TOKEN"))
     else:
         _raise_exception(uri)
 
